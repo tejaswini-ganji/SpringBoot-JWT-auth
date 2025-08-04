@@ -12,7 +12,7 @@
 
  ➡️🔒 Protected routes: Unauthorized access is denied
  
- ➡️📦 Connected to a database (MongoDB / SQL / etc.)
+ ➡️📦 Connected to a MySQL database 
  
  ➡️ Token validation and error handling implemented
 
