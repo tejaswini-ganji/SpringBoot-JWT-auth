@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.restapi.entities.User;
+import com.project.restapi.entities.UserEntity;
 import com.project.restapi.repositories.UserRepository;
 import com.project.restapi.security.JwtUtil;
 import com.project.restapi.services.UserDetailsServiceImpl;
@@ -25,17 +25,17 @@ public class AuthController {
     @Autowired private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public String register(@RequestBody User user) {
+    public String register(@RequestBody UserEntity user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         if (user.getRoles() == null || user.getRoles().isBlank()) {
-            user.setRoles("USER");
+            user.setRoles("ROLE_USER");
         }
         userRepo.save(user);
         return "User registered!";
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
+    public String login(@RequestBody UserEntity user) {
         try{
         authManager.authenticate(
             new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));

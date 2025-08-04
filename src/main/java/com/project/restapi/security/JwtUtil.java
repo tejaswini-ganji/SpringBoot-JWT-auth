@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +26,11 @@ public class JwtUtil {
     private final String SECRET_KEY = "k@j39#ZLwD!s8D2!aRp$Nf7Xc%6vQ9^M";
 
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", userDetails.getAuthorities()); // Store roles in JWT
+            Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", userDetails.getAuthorities()
+        .stream()
+        .map(GrantedAuthority::getAuthority)
+        .collect(Collectors.toList())); // Store roles in JWT
         return createToken(claims, userDetails.getUsername());
     }
 

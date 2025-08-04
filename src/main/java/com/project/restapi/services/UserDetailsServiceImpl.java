@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.project.restapi.entities.User;
+import com.project.restapi.entities.UserEntity;
 import com.project.restapi.repositories.UserRepository;
 
 @Service
@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
   @Override
 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = repo.findByUsername(username)
+    UserEntity user = repo.findByUsername(username)
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     List<SimpleGrantedAuthority> authorities = Arrays.stream(user.getRoles().split(","))
         .map(String::trim)

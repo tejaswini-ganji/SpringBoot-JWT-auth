@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "projects")
-public class Project {
+public class ProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
@@ -26,14 +26,14 @@ public class Project {
     private String managerName;
 
     
-    public Project(String name, String description, LocalDate deadline, String managerName) {
+    public ProjectEntity(String name, String description, LocalDate deadline, String managerName) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.managerName = managerName;
     }
 
-    public Project() {
+    public ProjectEntity() {
         // Default constructor for JPA
     }
     public Long getId() {
